@@ -46,12 +46,12 @@ const app = () => {
 
 
 
-    //Select sound
+    //Select time
     timeSelect.forEach(option => {
         option.addEventListener('click', function(){
             fakeDuration = this.getAttribute('data-time');
-            // timeDisplay.textContent = `${Math.floor(fakeDuration / 60)}:0${Math.floor(fakeDuration % 60)}`;
-            timeDisplay.textContent = ((fakeDuration % 60) > 0) ? `${Math.floor(fakeDuration / 60)}:${Math.floor(fakeDuration % 60)}` : `${Math.floor(fakeDuration / 60)}:0${Math.floor(fakeDuration % 60)}`;
+            song.currentTime = fakeDuration;
+            timeDisplay.textContent = `${Math.floor(fakeDuration / 60)}:${Math.floor(fakeDuration % 60)}`;
         })
     })
 
@@ -71,8 +71,6 @@ const app = () => {
 
     //We can animate the circle
     song.ontimeupdate = () => {
-        /*Here is the issue, it is based on the current time of the song;
-        If the song is left playing as you change time it will subtract what has already passed;*/
         let currentTime = song.currentTime;
         let elapsed = fakeDuration - currentTime;
         let seconds = Math.floor(elapsed % 60);
